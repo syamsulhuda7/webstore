@@ -20,6 +20,8 @@
 # Akun untuk Login
 1. Cukup gunakan username dan password
 2. Data tentang user juga saya cantumkan di console
+3. Anda juga bisa langsung melihat website dengan mengunjungi link berikut https://webstore-three.vercel.app/
+4. Data user
 [
   {
     "id": 1,
