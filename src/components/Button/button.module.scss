@@ -1,0 +1,31 @@
+@import "../../colors.scss";
+
+.container {
+    width: fit-content;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    button {
+        height: 35px;
+        width: 35px;
+        border-radius: 30px;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: map-get($map: $schema, $key: two );
+        border: none;
+        color: map-get($map: $schema, $key: fiv );
+        cursor: pointer;
+        &:hover {
+            background-color: map-get($map: $schema, $key: one );
+        }
+    }
+
+    p {
+        font-size: 20px;
+        color: map-get($map: $schema, $key: one );
+    }
+}

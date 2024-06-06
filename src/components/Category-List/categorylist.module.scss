@@ -1,0 +1,15 @@
+@import "../../colors.scss";
+
+.container {
+    width: fit-content;
+    border-radius: 20px;
+    padding: 10px 20px;
+    border: solid 3px map-get($map: $schema, $key: two );
+    background-color: transparent;
+    color: map-get($map: $schema, $key: two );
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
