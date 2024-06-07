@@ -1,3 +1,4 @@
+import DetailCard from "../Detail-Card/DetailCard";
 import styles from "./cardproduct.module.scss";
 
 interface Product {
@@ -28,8 +29,8 @@ export default function CardProduct({ item, sendId, sendPopUp }: CardProductProp
       </div>
       <p>{`${item.title.slice(0, 16)}...`}</p>
       <div>
-        <p className={styles.category}>$ {item.price}</p>
-        <div className={styles.category}>{item.category}</div>
+        <DetailCard sendProps={item.category}/>
+        <DetailCard sendProps={item.price}/>
       </div>
       <button onClick={()=>handleClick(item.id)}>Detail</button>
     </div>
