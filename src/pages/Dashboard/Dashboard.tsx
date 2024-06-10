@@ -17,6 +17,7 @@ interface Product {
 }
 
 export default function Dashboard() {
+  const [allData, setAllData] = useState<Product[]>([]);
   const [data, setData] = useState<Product[]>([]);
   const [popUpDetailProduk, setPopUpDetailProduk] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -26,8 +27,20 @@ export default function Dashboard() {
 
   useEffect(() => {
     const fetchData = async () => {
+        try {
+          const response = await axios.get<Product[]>(`https://fakestoreapi.com/products`);
+          setAllData(response.data);
+        } catch (error) {
+          console.log(error);
+        }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
       if (searchValue !== "") {
-        const filteredProducts = data.filter((product) =>
+        const filteredProducts = allData.filter((product) =>
           product.title.toLowerCase().includes(searchValue.toLowerCase())
         );
         setData(filteredProducts);
