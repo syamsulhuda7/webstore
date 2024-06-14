@@ -1,0 +1,105 @@
+@import "../../colors.scss";
+
+.unDisplay {
+  height: 100px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    color: map-get($map: $schema, $key: two);
+  }
+}
+
+.wrapper {
+    max-height: 500px;
+    overflow-y: auto;
+
+  .container {
+    height: 100px;
+    width: 100%;
+    background-color: map-get($map: $schema, $key: fiv);
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 5px;
+    position: relative;
+    margin-bottom: 10px;
+    box-shadow: 0px 0px 3px 1px #ccc;
+
+    i {
+      cursor: pointer;
+      color: map-get($map: $schema, $key: one);
+      height: fit-content;
+      &:hover {
+        color: map-get($map: $schema, $key: two);
+      }
+    }
+
+    .incontainer {
+      display: flex;
+      gap: 10px;
+
+      .image {
+        height: 100%;
+        width: 80px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 3px 1px #ccc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          height: auto;
+          width: 70%;
+        }
+      }
+
+      .description {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: space-between;
+
+        .button {
+          position: relative;
+          height: 24px;
+
+          div {
+            scale: 0.8;
+            left: -5px;
+            top: 2px;
+            position: absolute;
+          }
+        }
+      }
+    }
+
+    .total {
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+    }
+  }
+}
+
+.checkout {
+  height: 50px;
+  width: 100%;
+  border-radius: 5px;
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: large;
+  background-color: map-get($map: $schema, $key: one);
+  color: map-get($map: $schema, $key: fou);
+  cursor: pointer;
+  &:hover {
+    background-color: map-get($map: $schema, $key: two);
+  }
+}

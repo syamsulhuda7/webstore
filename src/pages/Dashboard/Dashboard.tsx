@@ -6,6 +6,7 @@ import axios from "axios";
 import DetailProduct from "../../components/Detail-Product/DetailProduct";
 import Loading from "../../components/Loading/Loading";
 import CategoryList from "../../components/Category-List/CategoryList";
+import Cart from "../../components/Cart/Cart";
 
 interface Product {
   id: number;
@@ -24,15 +25,18 @@ export default function Dashboard() {
   const [id, setId] = useState<number>();
   const [searchValue, setSearchValue] = useState<string>("");
   const [searchCategory, setSearchCategory] = useState<string>("");
+  const [popUpCart, setPopUpCart] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
-        try {
-          const response = await axios.get<Product[]>(`https://fakestoreapi.com/products`);
-          setAllData(response.data);
-        } catch (error) {
-          console.log(error);
-        }
+      try {
+        const response = await axios.get<Product[]>(
+          `https://fakestoreapi.com/products`
+        );
+        setAllData(response.data);
+      } catch (error) {
+        console.log(error);
+      }
     };
     fetchData();
   }, []);
@@ -67,27 +71,30 @@ export default function Dashboard() {
 
   return (
     <>
-      <Navbar sendSearch={setSearchValue} />
-      <div className={styles.categorylist}>
-        <CategoryList sendCategory={setSearchCategory} />
-      </div>
-      {popUpDetailProduk && (
-        <DetailProduct sendPopUp={setPopUpDetailProduk} sendIdProduct={id} />
-      )}
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <div className={styles.container}>
-          {data.map((item: Product) => (
-            <CardProduct
-              key={item.id}
-              item={item}
-              sendId={setId}
-              sendPopUp={setPopUpDetailProduk}
-            />
-          ))}
+      <Navbar sendCartValue={popUpCart} sendPopUpCart={setPopUpCart} sendSearch={setSearchValue} />
+      <div className={styles.superContainer}>
+        {popUpCart && <Cart />}
+        <div className={styles.categorylist}>
+          <CategoryList sendCategory={setSearchCategory} />
         </div>
-      )}
+        {popUpDetailProduk && (
+          <DetailProduct sendPopUp={setPopUpDetailProduk} sendIdProduct={id} />
+        )}
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <div className={styles.container}>
+            {data.map((item: Product) => (
+              <CardProduct
+                key={item.id}
+                item={item}
+                sendId={setId}
+                sendPopUp={setPopUpDetailProduk}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </>
   );
 }

@@ -7,6 +7,8 @@ import { clearAuth } from "../../redux/Auth/actions";
 
 interface NavbarProps {
   sendSearch: (search: string) => void;
+  sendPopUpCart: (popUpCart: boolean) => void;
+  sendCartValue: boolean;
 }
 
 interface AuthData {
@@ -19,7 +21,7 @@ interface AuthData {
   };
 }
 
-export default function Navbar({ sendSearch }: NavbarProps) {
+export default function Navbar({ sendSearch, sendPopUpCart, sendCartValue }: NavbarProps) {
   const [search, setSearch] = useState<string>("");
   const [popUpLogout, setPopUpLogout] = useState<boolean>(false);
 
@@ -50,6 +52,10 @@ export default function Navbar({ sendSearch }: NavbarProps) {
     dispatch(clearAuth())
   }
 
+  const handleCart = () => {
+    sendPopUpCart(!sendCartValue)
+  }
+
   return (
     <div className={styles.container}>
       <h1>WebStore</h1>
@@ -77,7 +83,7 @@ export default function Navbar({ sendSearch }: NavbarProps) {
           </>
         )}
         <div></div>
-        <i className="fa-solid fa-cart-shopping"></i>
+        <i onClick={handleCart} className="fa-solid fa-cart-shopping"></i>
         {popUpLogout && <div onClick={handleLogout} className={styles.logout}>Logout</div>}
       </div>
     </div>

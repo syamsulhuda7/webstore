@@ -1,8 +1,12 @@
+// DetailProduct.tsx
+
 import { useEffect, useState } from "react";
 import styles from "./detailproduct.module.scss";
 import axios from "axios";
 import Loading from "../Loading/Loading";
 import Button from "../Button/Button";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../../redux/Counter/actions";
 
 interface Rating {
   rate: number;
@@ -26,6 +30,9 @@ interface DetailProductProps {
 
 export default function DetailProduct({ sendIdProduct, sendPopUp }: DetailProductProps) {
   const [data, setData] = useState<Product | null>(null);
+  const [buttonValue, setButtonValue] = useState<number>(0);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,7 +41,6 @@ export default function DetailProduct({ sendIdProduct, sendPopUp }: DetailProduc
           `https://fakestoreapi.com/products/${sendIdProduct}`
         );
         setData(response.data);
-        console.log(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -42,13 +48,20 @@ export default function DetailProduct({ sendIdProduct, sendPopUp }: DetailProduc
     fetchData();
   }, [sendIdProduct]);
 
-  //   if (!data) {
-  //     return <Loading />;
-  //   }
-
   const handleClose = () => {
     sendPopUp(false)
   };
+
+  const handleAddProduct = () => {
+    dispatch(addProduct({
+      id: data?.id,
+      image: data?.image,
+      title: data?.title,
+      price: data?.price,
+      qty: buttonValue,
+    }))
+    sendPopUp(false)
+  }
 
   return (
     <div className={styles.container}>
@@ -76,8 +89,8 @@ export default function DetailProduct({ sendIdProduct, sendPopUp }: DetailProduc
               </p>
               <p>Category : {data.category}</p>
               <div className={styles.button}>
-                <Button />
-                <button className={styles.addproduct}>+ Add Product</button>
+                <Button sendValue={setButtonValue} lcValue={0}/>
+                <button onClick={handleAddProduct} className={styles.addproduct}>+ Add Product</button>
               </div>
             </div>
           </>

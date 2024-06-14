@@ -2,9 +2,11 @@
 
 .container {
     position: absolute;
-    height: 100vh;
+    height: fit-content;
     width: 400px;
     background-color: map-get($map: $schema, $key: fou );
     border: 3px solid map-get($map: $schema, $key: two );
-    border-radius: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    right: 5px;
 }
